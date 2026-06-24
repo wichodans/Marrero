@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Marrero Productions</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Raleway:wght@300;400;500;600&family=Cinzel+Decorative:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- ══════════════════════════════════════
+       HEADER / NAVEGACIÓN STICKY
+  ══════════════════════════════════════ -->
+  <header class="site-header" id="site-header">
+    <div class="header-inner">
+
+      <!-- Logo -->
+      <a href="#hero" class="logo-link" aria-label="Marrero Productions - Inicio">
+        <div class="logo-container">
+          <span class="logo-marrero">MARRERO</span>
+          <span class="logo-productions">PRODUCTIONS</span>
+        </div>
+      </a>
+
+      <!-- Navegación principal -->
+      <nav class="main-nav" id="main-nav" aria-label="Navegación principal">
+        <ul class="nav-list">
+
+          <li class="nav-item has-dropdown">
+            <button class="nav-btn" aria-haspopup="true" aria-expanded="false">
+              Producción <span class="nav-arrow">▾</span>
+            </button>
+            <ul class="dropdown" role="menu">
+              <li><a href="#produccion" class="dropdown-link" role="menuitem">Producción Cinematográfica</a></li>
+              <li><a href="#produccion" class="dropdown-link" role="menuitem">Producción Publicitaria</a></li>
+              <li><a href="#produccion" class="dropdown-link" role="menuitem">Producción de Eventos</a></li>
+            </ul>
+          </li>
+
+          <li class="nav-item has-dropdown">
+            <button class="nav-btn" aria-haspopup="true" aria-expanded="false">
+              Servicios <span class="nav-arrow">▾</span>
+            </button>
+            <ul class="dropdown" role="menu">
+              <li><a href="#servicios" class="dropdown-link" role="menuitem">Dirección de Arte</a></li>
+              <li><a href="#servicios" class="dropdown-link" role="menuitem">Postproducción & VFX</a></li>
+              <li><a href="#servicios" class="dropdown-link" role="menuitem">Fotografía Profesional</a></li>
+            </ul>
+          </li>
+
+          <li class="nav-item has-dropdown">
+            <button class="nav-btn" aria-haspopup="true" aria-expanded="false">
+              Portafolio <span class="nav-arrow">▾</span>
+            </button>
+            <ul class="dropdown" role="menu">
+              <li><a href="#portafolio" class="dropdown-link" role="menuitem">Proyectos Recientes</a></li>
+              <li><a href="#portafolio" class="dropdown-link" role="menuitem">Cortometrajes</a></li>
+              <li><a href="#portafolio" class="dropdown-link" role="menuitem">Campañas Comerciales</a></li>
+            </ul>
+          </li>
+
+          <li class="nav-item has-dropdown">
+            <button class="nav-btn" aria-haspopup="true" aria-expanded="false">
+              Nosotros <span class="nav-arrow">▾</span>
+            </button>
+            <ul class="dropdown" role="menu">
+              <li><a href="#nosotros" class="dropdown-link" role="menuitem">Nuestro Equipo</a></li>
+              <li><a href="#nosotros" class="dropdown-link" role="menuitem">Historia & Visión</a></li>
+              <li><a href="#nosotros" class="dropdown-link" role="menuitem">Contacto</a></li>
+            </ul>
+          </li>
+
+        </ul>
+      </nav>
+
+      <!-- Botón menú hamburguesa (móvil) -->
+      <button class="hamburger" id="hamburger" aria-label="Abrir menú" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+
+    </div>
+  </header>
+
+  <!-- ══════════════════════════════════════
+       SECCIÓN HERO — CARRUSEL DINÁMICO
+  ══════════════════════════════════════ -->
+  <section class="hero-section" id="hero" aria-label="Portada principal">
+
+    <!-- Marca de agua del logotipo -->
+    <div class="hero-watermark" aria-hidden="true">MARRERO</div>
+
+    <!-- Carrusel (lógica en script.js, basada en indexIV.html) -->
+    <div class="carousel-wrapper" id="carousel">
+
+      <!-- Pantalla de carga inicial -->
+      <div class="loading-screen" id="loading">
+        <div class="loading-logo">
+          <span class="loading-marrero">MARRERO</span>
+          <span class="loading-productions">PRODUCTIONS</span>
+        </div>
+        <div class="spinner"></div>
+        <span class="loading-text">Cargando experiencia visual...</span>
+      </div>
+
+      <!-- Track de slides (poblado dinámicamente) -->
+      <div class="carousel-track" id="track" style="display:none;"></div>
+
+      <!-- Controles de navegación -->
+      <button class="arrow arrow-left"  id="btn-left"  aria-label="Slide anterior" style="display:none;">&#8249;</button>
+      <button class="arrow arrow-right" id="btn-right" aria-label="Slide siguiente" style="display:none;">&#8250;</button>
+
+      <!-- Barra de progreso -->
+      <div class="progress-bar" id="progress-bar" style="display:none;">
+        <div class="progress-fill" id="progress"></div>
+      </div>
+
+      <!-- Indicadores de puntos -->
+      <div class="dots" id="dots" role="tablist" aria-label="Navegación de slides"></div>
+
+    </div>
+
+    <!-- Indicador de scroll -->
+    <div class="scroll-indicator" aria-hidden="true">
+      <span class="scroll-text">Descubre más</span>
+      <div class="scroll-arrow"></div>
+    </div>
+
+  </section>
+
+  <!-- ══════════════════════════════════════
+       SECCIÓN 1 — PRODUCCIÓN (imagen | texto)
+  ══════════════════════════════════════ -->
+  <section class="content-section section-dark" id="produccion" aria-labelledby="produccion-title">
+    <div class="section-inner layout-image-text">
+
+      <div class="section-media reveal-left">
+        <div class="media-frame">
+          <img
+            src="https://images.unsplash.com/photo-1505236858219-8359eb29e329?w=800&q=80"
+            alt="Producción cinematográfica profesional"
+            loading="lazy"
+          >
+          <div class="media-accent-line"></div>
+        </div>
+      </div>
+
+      <div class="section-text reveal-right">
+        <span class="section-eyebrow">01 — Producción</span>
+        <h2 id="produccion-title" class="section-title">
+          Donde la visión<br>
+          <em class="title-accent">cobra vida</em>
+        </h2>
+        <p class="section-body">
+          En Marrero Productions transformamos conceptos en experiencias visuales de impacto. 
+          Desde la preproducción hasta el corte final, cada fotograma es una decisión artística 
+          cuidadosamente tomada por un equipo apasionado por el cine.
+        </p>
+        <p class="section-body">
+          Nuestra metodología combina técnica de alto nivel con una narrativa auténtica, 
+          garantizando resultados que superan expectativas en cada proyecto.
+        </p>
+        <a href="#" class="cta-btn">Ver proyectos <span class="btn-arrow">→</span></a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       SECCIÓN 2 — SERVICIOS (texto | imagen)
+  ══════════════════════════════════════ -->
+  <section class="content-section section-deeper" id="servicios" aria-labelledby="servicios-title">
+    <div class="section-inner layout-text-image">
+
+      <div class="section-text reveal-left">
+        <span class="section-eyebrow">02 — Servicios</span>
+        <h2 id="servicios-title" class="section-title">
+          Creatividad sin<br>
+          <em class="title-accent">fronteras técnicas</em>
+        </h2>
+        <p class="section-body">
+          Ofrecemos un ecosistema completo de servicios audiovisuales: dirección de arte, 
+          cinematografía de cine, postproducción avanzada con VFX, colorización y diseño sonoro 
+          de nivel broadcast.
+        </p>
+        <p class="section-body">
+          Cada disciplina está liderada por especialistas con trayectoria en producciones 
+          nacionales e internacionales, asegurando un acabado de clase mundial.
+        </p>
+        <a href="#" class="cta-btn">Conoce nuestros servicios <span class="btn-arrow">→</span></a>
+      </div>
+
+      <div class="section-media reveal-right">
+        <div class="media-frame">
+          <img
+            src="https://images.unsplash.com/photo-1478720568477-152d9b164e26?w=800&q=80"
+            alt="Equipo de filmación en acción"
+            loading="lazy"
+          >
+          <div class="media-accent-line"></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       SECCIÓN 3 — PORTAFOLIO (imagen | texto)
+  ══════════════════════════════════════ -->
+  <section class="content-section section-dark" id="portafolio" aria-labelledby="portafolio-title">
+    <div class="section-inner layout-image-text">
+
+      <div class="section-media reveal-left">
+        <div class="media-frame">
+          <img
+            src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=800&q=80"
+            alt="Portafolio de proyectos audiovisuales"
+            loading="lazy"
+          >
+          <div class="media-accent-line"></div>
+        </div>
+      </div>
+
+      <div class="section-text reveal-right">
+        <span class="section-eyebrow">03 — Portafolio</span>
+        <h2 id="portafolio-title" class="section-title">
+          Historias que<br>
+          <em class="title-accent">perduran</em>
+        </h2>
+        <p class="section-body">
+          Más de una década capturando momentos, emociones y mensajes que conectan 
+          con audiencias. Nuestro portafolio abarca desde cortometrajes de autor 
+          hasta grandes campañas publicitarias para marcas líderes.
+        </p>
+        <p class="section-body">
+          Cada producción es un testimonio de nuestro compromiso con la excelencia 
+          visual y la narrativa auténtica que nos define.
+        </p>
+        <a href="#" class="cta-btn">Explorar portafolio <span class="btn-arrow">→</span></a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       SECCIÓN 4 — NOSOTROS (texto | imagen)
+  ══════════════════════════════════════ -->
+  <section class="content-section section-deeper" id="nosotros" aria-labelledby="nosotros-title">
+    <div class="section-inner layout-text-image">
+
+      <div class="section-text reveal-left">
+        <span class="section-eyebrow">04 — Nosotros</span>
+        <h2 id="nosotros-title" class="section-title">
+          El equipo detrás<br>
+          <em class="title-accent">de la magia</em>
+        </h2>
+        <p class="section-body">
+          Marrero Productions nació de la pasión por el cine y la convicción de que 
+          cada historia merece ser contada con maestría. Somos un equipo multidisciplinar 
+          unido por la misma visión: crear imágenes que impacten y emocionen.
+        </p>
+        <p class="section-body">
+          Desde directores con visión de autor hasta técnicos especialistas en las 
+          últimas tecnologías, construimos equipos a medida para cada proyecto.
+        </p>
+        <a href="#" class="cta-btn">Conoce al equipo <span class="btn-arrow">→</span></a>
+      </div>
+
+      <div class="section-media reveal-right">
+        <div class="media-frame">
+          <img
+            src="https://images.unsplash.com/photo-1524712245354-2c4e5e7121c0?w=800&q=80"
+            alt="El equipo de Marrero Productions"
+            loading="lazy"
+          >
+          <div class="media-accent-line"></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       FOOTER PROFESIONAL
+  ══════════════════════════════════════ -->
+  <footer class="site-footer" id="footer">
+
+    <div class="footer-top">
+      <div class="footer-inner">
+
+        <!-- Columna 1: Brand -->
+        <div class="footer-col footer-brand">
+          <div class="footer-logo">
+            <span class="footer-logo-marrero">MARRERO</span>
+            <span class="footer-logo-productions">PRODUCTIONS</span>
+          </div>
+          <p class="footer-tagline">
+            Creando imágenes que trascienden.<br>
+            Producción audiovisual de alto nivel.
+          </p>
+          <div class="footer-socials">
+            <a href="#" class="social-link" aria-label="Instagram">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            </a>
+            <a href="#" class="social-link" aria-label="YouTube">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22.54 6.42a2.78 2.78 0 00-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 001.46 6.42 29 29 0 001 12a29 29 0 00.46 5.58 2.78 2.78 0 001.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 001.95-1.96A29 29 0 0023 12a29 29 0 00-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></svg>
+            </a>
+            <a href="#" class="social-link" aria-label="Vimeo">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 7.4c-.1 2.2-1.6 5.2-4.5 8.9C14.5 20 12 22 9.9 22c-1.3 0-2.4-1.2-3.3-3.6L5 12.8C4.3 10.4 3.5 9.2 2.6 9.2c-.2 0-.9.4-2.1 1.3L0 9.3c1.3-1.2 2.6-2.3 3.9-3.5 1.8-1.5 3.1-2.3 4-2.4 2.1-.2 3.4 1.2 3.8 4.2.5 3.2.9 5.2 1.1 6 .6 2.7 1.3 4 2 4 .6 0 1.4-.9 2.6-2.7 1.1-1.8 1.7-3.2 1.8-4.1.2-1.6-.5-2.4-1.8-2.4-.7 0-1.3.1-2 .5 1.4-4.5 4-6.7 7.8-6.5 2.8.1 4.1 1.9 4 5z"/></svg>
+            </a>
+            <a href="#" class="social-link" aria-label="LinkedIn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Columna 2: Servicios -->
+        <div class="footer-col">
+          <h3 class="footer-heading">Servicios</h3>
+          <ul class="footer-links">
+            <li><a href="#produccion">Producción Cinematográfica</a></li>
+            <li><a href="#produccion">Producción Publicitaria</a></li>
+            <li><a href="#servicios">Dirección de Arte</a></li>
+            <li><a href="#servicios">Postproducción & VFX</a></li>
+            <li><a href="#servicios">Fotografía Profesional</a></li>
+          </ul>
+        </div>
+
+        <!-- Columna 3: Portafolio -->
+        <div class="footer-col">
+          <h3 class="footer-heading">Portafolio</h3>
+          <ul class="footer-links">
+            <li><a href="#portafolio">Proyectos Recientes</a></li>
+            <li><a href="#portafolio">Cortometrajes</a></li>
+            <li><a href="#portafolio">Campañas Comerciales</a></li>
+            <li><a href="#portafolio">Eventos</a></li>
+            <li><a href="#portafolio">Showreel 2024</a></li>
+          </ul>
+        </div>
+
+        <!-- Columna 4: Contacto -->
+        <div class="footer-col">
+          <h3 class="footer-heading">Contacto</h3>
+          <address class="footer-contact">
+            <p>
+              <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              Madrid, España
+            </p>
+            <p>
+              <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 11a19.79 19.79 0 01-3.07-8.67A2 2 0 012 .18h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+              +34 600 000 000
+            </p>
+            <p>
+              <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              info@marreroproductions.com
+            </p>
+          </address>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Footer bottom bar -->
+    <div class="footer-bottom">
+      <div class="footer-inner footer-bottom-inner">
+        <p class="footer-copy">
+          &copy; <span id="year"></span> Marrero Productions. Todos los derechos reservados.
+        </p>
+        <div class="footer-legal">
+          <a href="#">Aviso Legal</a>
+          <span class="divider-dot">·</span>
+          <a href="#">Política de Privacidad</a>
+          <span class="divider-dot">·</span>
+          <a href="#">Cookies</a>
+        </div>
+      </div>
+    </div>
+
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
