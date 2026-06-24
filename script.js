@@ -143,7 +143,6 @@ function construirSlides(lista) {
           preload="none"
           playsinline
           muted
-          loop
           style="display:none;"
         ></video>
         <div class="slide-overlay" style="${desc ? "" : "min-height:0;padding:1rem 2rem;"}">
@@ -261,10 +260,11 @@ function cargarSlide(idx) {
  * @param {number} idx - Índice del slide actual
  */
 function gestionarVideo(idx) {
-  // Pausar y reiniciar todos los videos
+  // Pausar y reiniciar todos los videos; limpiar cualquier handler previo
   track.querySelectorAll("video").forEach(v => {
     v.pause();
     v.currentTime = 0;
+    v.onended = null;
   });
 
   const slides = track.querySelectorAll(".slide");
@@ -284,24 +284,26 @@ function gestionarVideo(idx) {
     if (ph) ph.style.display = "none";
   }
 
-  video.play().catch(() => {
-    // Fallback si autoplay está bloqueado por el navegador
-    pausadoPorVideo = false;
-    empezarTimer();
-  });
-
-  // Pausar el autoplay del carrusel mientras dura el video
+  // Pausar autoplay del carrusel mientras dura el video
   pausadoPorVideo = true;
   clearInterval(timerInterval);
   cancelAnimationFrame(animFrame);
   progEl.style.width = "0%";
 
-  // Cuando el video termina, continuar con el siguiente slide
+  // Asignar onended ANTES de play() para no perder el evento
   video.onended = () => {
+    video.onended = null;
     pausadoPorVideo = false;
     goTo(current + 1);
     empezarTimer();
   };
+
+  video.play().catch(() => {
+    // Autoplay bloqueado por el navegador → continuar con timer normal
+    video.onended = null;
+    pausadoPorVideo = false;
+    empezarTimer();
+  });
 }
 
 // ══════════════════════════════════════════════════════════════
@@ -335,10 +337,17 @@ function goTo(n) {
  * @param {number} dir - Dirección: 1 (siguiente) o -1 (anterior)
  */
 function mover(dir) {
-  clearInterval(timerInterval);
+  // Si hay un video activo, limpiar su handler antes de navegar
+  track.querySelectorAll("video").forEach(v => {
+    v.pause();
+    v.currentTime = 0;
+    v.onended = null;
+  });
   pausadoPorVideo = false;
+  clearInterval(timerInterval);
+  cancelAnimationFrame(animFrame);
   goTo(current + dir);
-  if (!pausadoPorVideo) empezarTimer();
+  empezarTimer();
 }
 
 // Exponer mover() globalmente para los onclick del HTML
