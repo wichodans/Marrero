@@ -243,13 +243,16 @@ ul { list-style: none; }
 .hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
 
 /* ════════════════════════════════════════
-   HERO SECTION (100vh)
+   HERO SECTION (100vh / 100dvh)
 ════════════════════════════════════════ */
 .hero-section {
   position: relative;
   width: 100%;
+  /* Fallback para navegadores sin soporte dvh */
   height: 100vh;
-  min-height: 500px;
+  /* dvh descuenta la barra del navegador en móvil (iOS/Android) */
+  height: 100dvh;
+  min-height: 480px;
   overflow: hidden;
 }
 
@@ -323,12 +326,17 @@ ul { list-style: none; }
 
 .carousel-track {
   display: flex;
+  /* Ancho total = 100% × nº de slides; el JS mueve con translateX */
+  width: 100%;
   height: 100%;
   transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  will-change: transform;
 }
 
 .slide {
-  min-width: 100%;
+  /* flex-shrink:0 + flex-basis:100% evitan que el slide se comprima */
+  flex: 0 0 100%;
+  width: 100%;
   height: 100%;
   position: relative;
   overflow: hidden;
@@ -336,9 +344,16 @@ ul { list-style: none; }
 }
 
 .slide img {
+  /* position:absolute + inset:0 garantiza que cubra el slide entero
+     sin importar el tamaño de pantalla o la orientación del dispositivo */
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
+  /* center center es el foco por defecto; cambia a "top center"
+     si tus imágenes tienen el sujeto en la parte superior */
+  object-position: center center;
   display: block;
   opacity: 0;
   transition: opacity 0.5s ease;
@@ -347,9 +362,12 @@ ul { list-style: none; }
 .slide img.loaded { opacity: 1; }
 
 .slide video {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center center;
   display: block;
 }
 
@@ -1025,16 +1043,73 @@ ul { list-style: none; }
   }
 }
 
+/* ── Móviles (≤ 768px) — ajustes específicos del carrusel ── */
+@media (max-width: 768px) {
+  /* En portrait móvil el hero es más alto que ancho:
+     usamos dvh para descontar la barra del navegador */
+  .hero-section {
+    height: 100vh;
+    height: 100dvh;
+    min-height: 420px;
+  }
+
+  /* El wrapper y el track deben ocupar exactamente el hero */
+  .carousel-wrapper,
+  .carousel-track {
+    height: 100%;
+    width: 100%;
+  }
+
+  /* Cada slide: ocupa el 100% del viewport en portrait */
+  .slide {
+    flex: 0 0 100vw;
+    width: 100vw;
+    height: 100%;
+  }
+
+  /* Imágenes y videos: cubren toda la pantalla sin deformar;
+     object-position "top center" prioriza la zona superior
+     (donde suele estar el sujeto en fotos verticales) */
+  .slide img,
+  .slide video {
+    object-position: top center;
+  }
+
+  /* Flechas más pequeñas y pegadas a los bordes */
+  .arrow { width: 40px; height: 40px; font-size: 22px; }
+  .arrow-left  { left: 10px; }
+  .arrow-right { right: 10px; }
+
+  /* Overlay más compacto */
+  .slide-overlay { padding: 1.5rem 1.2rem 2.5rem; min-height: 100px; }
+  .slide-desc { max-width: 100%; font-size: 0.85rem; }
+
+  /* Puntos de navegación más arriba para no solapar con el overlay */
+  .dots { bottom: 2.8rem; }
+}
+
 /* ── Móviles pequeños (≤ 480px) ── */
 @media (max-width: 480px) {
-  .arrow { width: 38px; height: 38px; font-size: 20px; }
-
-  .slide-overlay { padding: 1.5rem 1.5rem 2.5rem; }
-  .slide-desc { max-width: 100%; }
+  .arrow { width: 36px; height: 36px; font-size: 19px; }
 
   .section-title { font-size: 1.8rem; }
 
-  .dots { bottom: 2rem; }
+  .scroll-indicator { display: none; }
+}
+
+/* ── Landscape móvil — hero altura mínima razonable ── */
+@media (max-width: 900px) and (orientation: landscape) {
+  .hero-section {
+    height: 100vh;
+    height: 100dvh;
+    min-height: 320px;
+  }
+
+  /* En landscape el sujeto suele estar centrado */
+  .slide img,
+  .slide video {
+    object-position: center center;
+  }
 
   .scroll-indicator { display: none; }
 }
